@@ -1,6 +1,6 @@
 ### Math example  generator 
 [![GitHub issues](https://img.shields.io/github/issues/dark0ghost/Math-example-generator)](https://github.com/dark0ghost/Math-example-generator/issues)
-[![GitHub release](https://img.shields.io/github/release/ddark0ghost/Math-example-generator)](https://github.com/dark0ghost/Math-example-generator/releases/)
+[![GitHub release](https://img.shields.io/github/release/dark0ghost/Math-example-generator)](https://github.com/dark0ghost/Math-example-generator/releases/)
 [![Github all releases](https://img.shields.io/github/downloads/dark0ghost/Math-example-generator/total.svg)](https://github.com/dark0ghost/Math-example-generator/releases/)
 [![GitHub code size](https://img.shields.io/github/languages/code-size/dark0ghost/Math-example-generator?style=flat)](https://github.com/ddark0ghost/Math-example-generator)
 [![](https://jitpack.io/v/imkarl/Badge.svg)](https://jitpack.io/#imkarl/Badge)
