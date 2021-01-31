@@ -18,7 +18,7 @@ maven {
 
 dependencies {
     
-implementation 'com.github.cregus'
+implementation 'com.github.dark0ghost:Math-example-generator:v1'
     
 }
 ```
