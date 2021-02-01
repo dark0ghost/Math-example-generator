@@ -28,8 +28,8 @@ open class MathGenerate {
     private var random: CustomRandom = ObjectRandom()
 
     private fun generateMathExample(operation: List<MathOperation>, arrayNumber: List<Int>): String {
-        var result: String = ""
-        for (_i in 0..len)
+        var result = ""
+        for (_i in 0 until len)
             result += marker(operation.randomObject(), arrayNumber.randomObject())
         if( lastOperation != MathOperation.Division)
             result += arrayNumber.randomObject().toString()
@@ -104,6 +104,7 @@ open class MathGenerate {
          random = value
          field = value
      }
+
     open fun getData(operation: List<MathOperation>, begin: Int, end: Int, len: Int = 2): Pair<String, BigDecimal> {
         this.begin = begin
         this.end = end
@@ -120,8 +121,8 @@ open class MathGenerate {
                 null
             }
         } while (answer == null || !isInteger(answer))
-        return Pair(mathExample, answer)
 
+        return mathExample to answer
     }
 
     private companion object{
@@ -133,4 +134,3 @@ open class MathGenerate {
              get() = 2.toDouble().pow(this) % this == 1.0
     }
 }
-

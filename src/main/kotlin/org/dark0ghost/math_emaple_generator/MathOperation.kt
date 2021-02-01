@@ -5,5 +5,9 @@ enum class MathOperation(val operation: String) {
     Minus("-"),
     Multiplication("*"),
     Division("/"),
-    Degree("^")
+    Degree("^");
+
+    fun toList(): List<MathOperation>{
+        return listOf(this)
+    }
 }
