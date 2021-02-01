@@ -29,7 +29,7 @@ open class MathGenerate {
 
     private fun generateMathExample(operation: List<MathOperation>, arrayNumber: List<Int>): String {
         var result: String = ""
-        for (_i in 0..len)
+        for (_i in 0 until len)
             result += marker(operation.randomObject(), arrayNumber.randomObject())
         if( lastOperation != MathOperation.Division)
             result += arrayNumber.randomObject().toString()
