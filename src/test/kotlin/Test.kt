@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 class TestClass {
 
     @Test
-    fun test(){
+    fun testDegree(){
      val regex: Regex = """(\d+)\^(\d+)""".toRegex()
 
      val mathGenerate = MathGenerate()
@@ -14,4 +14,10 @@ class TestClass {
      assert(regex.find(data.first) != null)
     }
 
+    @Test
+    fun testDivision(){
+        val mathGenerate = MathGenerate()
+
+        mathGenerate.getData(MathOperation.Division.toList(),0,20,1)
+    }
 }
