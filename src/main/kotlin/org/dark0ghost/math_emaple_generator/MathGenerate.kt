@@ -62,16 +62,27 @@ open class MathGenerate {
     }
 
     private fun getNumberForIntegerResult(): Int {
-        var value = random.randomNumber(begin, end)
+        var value = getNotZeroValue()
 
-        if (value.isZero()) value = getNotZeroValue()
+        if(lastNumber.isPrimeNumber)
+            return value
 
-        new@while (!lastNumber.isIntegerResult(value)) {
+        if(value % lastNumber > 1 )
+            return lastNumber
+
+        if(lastNumber % value <= 1){
+            while(lastNumber.isIntegerResult(value))
+                value++
+            return value
+        }
+
+        /*new@while (!lastNumber.isIntegerResult(value)) {
             value = random.randomNumber(begin, end)
             if (value.isZero()) value = getNotZeroValue()
-            if (lastNumber == value && !value.isPrimeNumber)
+            val res = random.randomNumber(1,20)
+            if ((lastNumber == value ) && !value.isPrimeNumber)
                 continue@new
-        }
+        }*/
         return value
     }
 
@@ -87,14 +98,18 @@ open class MathGenerate {
     private fun marker(operation: MathOperation, number: Int): String {
         if (operation == MathOperation.Division && number.isZero()) {
             lastOperation = operation
-            lastNumber = getNotZeroValue()
-            return (if (lastNumber > 0) lastNumber.toString() else "($lastNumber)") + operation.operation
+            lastNumber = number
+            return (if (number > 0) number.toString() else "($number)") + operation.operation
         }
         if (operation == MathOperation.Division && !lastNumber.isIntegerResult(number)) {
             lastOperation = operation
-            val i  = getNumberForIntegerResult()
-            lastNumber = i
-            return (if (i > 0) i.toString() else "($i)") + operation.operation
+            lastNumber = getNumberForIntegerResult()
+            return (if ( lastNumber > 0) lastNumber.toString() else "($lastNumber)") + operation.operation
+        }
+        if(lastOperation == MathOperation.Division && number.isZero()){
+            lastOperation = operation
+            lastNumber = if (!lastNumber.isZero()) getNotZeroValue() else getNumberForIntegerResult()
+            return "($lastNumber)" + operation.operation
         }
         if (operation == MathOperation.Division && lastOperation == operation) {
             lastOperation = getRandomOperationAndNotDivision()
