@@ -1,6 +1,6 @@
 package org.dark0ghost.math_emaple_generator
 
-
+import org.dark0ghost.math_emaple_generator.exept.VeryBigDecimalResultException
 import org.dark0ghost.math_generator_example.random_object.CustomRandom
 import org.dark0ghost.math_generator_example.random_object.ObjectRandom
 import pl.kremblewski.expressionevaluator.evaluate
@@ -75,14 +75,6 @@ open class MathGenerate {
                 value++
             return value
         }
-
-        /*new@while (!lastNumber.isIntegerResult(value)) {
-            value = random.randomNumber(begin, end)
-            if (value.isZero()) value = getNotZeroValue()
-            val res = random.randomNumber(1,20)
-            if ((lastNumber == value ) && !value.isPrimeNumber)
-                continue@new
-        }*/
         return value
     }
 
@@ -140,6 +132,16 @@ open class MathGenerate {
         }
 
     open fun getData(operation: List<MathOperation>, begin: Int, end: Int, len: Int = 2): Pair<String, BigDecimal> {
+        if(begin == end){
+            val example = begin.toString() + operation.randomObject().operation + end.toString()
+            val answer = try {
+                getAnswerOnExample(example)
+            }catch (e: ArithmeticException){
+               throw VeryBigDecimalResultException("result is very big and begin and end are equal")
+            }
+            return example to answer
+
+        }
         this.begin = begin
         this.end = end
         this.arrayOperation = operation.shuffled()
@@ -152,7 +154,7 @@ open class MathGenerate {
             mathExample = generateMathExample(arrayOperation.shuffled(), numberArray.shuffled())
             answer = try {
                 getAnswerOnExample(mathExample)
-            }catch (e: StackOverflowError){
+            }catch (e: Throwable){
                 null
             }
         }while (answer == null || !isInteger(answer))
