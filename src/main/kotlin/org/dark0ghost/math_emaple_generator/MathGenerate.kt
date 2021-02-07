@@ -31,7 +31,13 @@ open class MathGenerate {
         var result = ""
         for (_i in 0 until len)
             result += marker(operation.randomObject(), arrayNumber.randomObject())
-        if( lastOperation != MathOperation.Division)
+
+        if(lastOperation == MathOperation.Degree){
+            result += arrayNumber.randomObject().toString()+")"
+            return result
+        }
+
+        if(lastOperation != MathOperation.Division)
             result += arrayNumber.randomObject().toString()
         else
             result += getNotZeroValue()
@@ -41,6 +47,7 @@ open class MathGenerate {
     private fun generateNumberArray(): List<Int> {
         val result = mutableListOf<Int>()
         val lenGen = if (len < 10) 10 else len
+
         for (_i in 0 until lenGen)
             result.add(random.randomNumber(begin, end))
         return result.shuffled()
@@ -56,7 +63,9 @@ open class MathGenerate {
 
     private fun getNumberForIntegerResult(): Int {
         var value = random.randomNumber(begin, end)
+
         if (value.isZero()) value = getNotZeroValue()
+
         new@while (!lastNumber.isIntegerResult(value)) {
             value = random.randomNumber(begin, end)
             if (value.isZero()) value = getNotZeroValue()
@@ -92,6 +101,16 @@ open class MathGenerate {
             lastNumber = number
             return (if (number > 0) number.toString() else "($number)") +  lastOperation.operation
         }
+        if(operation == MathOperation.Degree){
+            lastOperation = operation
+            lastNumber = number
+            return "($number${operation.operation}"
+        }
+        if(lastOperation == MathOperation.Degree){
+            lastOperation = operation
+            lastNumber = number
+            return "$number)" + operation.operation
+        }
         lastOperation = operation
         lastNumber = number
         return (if (number > 0) number.toString() else "($number)") + operation.operation
@@ -101,9 +120,9 @@ open class MathGenerate {
 
     open var customRandom: CustomRandom = ObjectRandom()
         set(value) {
-         random = value
-         field = value
-     }
+            random = value
+            field = value
+        }
 
     open fun getData(operation: List<MathOperation>, begin: Int, end: Int, len: Int = 2): Pair<String, BigDecimal> {
         this.begin = begin
@@ -112,6 +131,7 @@ open class MathGenerate {
         this.len = len
         var mathExample: String
         var answer: BigDecimal?
+
         do {
             val numberArray = generateNumberArray()
             mathExample = generateMathExample(arrayOperation.shuffled(), numberArray.shuffled())
@@ -120,12 +140,13 @@ open class MathGenerate {
             }catch (e: StackOverflowError){
                 null
             }
-        } while (answer == null || !isInteger(answer))
+        }while (answer == null || !isInteger(answer))
 
         return mathExample to answer
     }
 
     private companion object{
+
          fun Int.isZero(): Boolean = (this == 0)
 
          fun Int.isIntegerResult(number: Int): Boolean = (this % number) == 0
@@ -134,3 +155,4 @@ open class MathGenerate {
              get() = 2.toDouble().pow(this) % this == 1.0
     }
 }
+
