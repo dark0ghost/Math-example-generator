@@ -21,11 +21,6 @@ class TestClass {
     }
 
     @Test
-    fun testDivision(){
-      val (example, _) = mathGenerate.getData(MathOperation.Division.toList(),-100000,100000,1)
-    }
-
-    @Test
     fun equalBeginAndEnd() {
         try {
             mathGenerate.getData(MathOperation.Degree.toList(), 1000000000, 1000000000, 1)
@@ -34,4 +29,11 @@ class TestClass {
         }
         throw Exception()
     }
+
+    /*
+    @Test
+    fun testDivision(){
+      val (example, _) = mathGenerate.getData(MathOperation.Division.toList(),-100000,100000,1)
+    }
+     */
 }
