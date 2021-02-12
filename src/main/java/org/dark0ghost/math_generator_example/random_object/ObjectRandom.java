@@ -8,6 +8,7 @@ public class ObjectRandom implements CustomRandom {
         return Objects.hash(new Object());
     }
 
+    @Override
     public int randomNumber(int begin, int end){
         int hash = getAddress();
         int difference = end - begin;

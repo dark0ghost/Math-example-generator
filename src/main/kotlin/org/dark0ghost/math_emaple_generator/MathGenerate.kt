@@ -11,8 +11,6 @@ import kotlin.math.pow
 
 open class MathGenerate {
 
-    private fun <T> List<T>.randomObject(): T = get(random.randomNumber(0, lastIndex+1))
-
     private var begin by Delegates.notNull<Int>()
 
     private var end by Delegates.notNull<Int>()
@@ -163,6 +161,8 @@ open class MathGenerate {
     }
 
     private companion object{
+
+         fun <T> List<T>.randomObject(): T = get(ObjectRandom().randomNumber(0, lastIndex+1))
 
          fun Int.isZero(): Boolean = (this == 0)
 
