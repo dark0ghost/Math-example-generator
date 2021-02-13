@@ -9,7 +9,7 @@ public class ObjectRandom implements CustomRandom {
     }
 
     @Override
-    public int randomNumber(int begin, int end) {
+    public int randomNumber(int begin, int end){
         int hash = getAddress();
         int difference = end - begin;
         return begin + (hash % difference);
