@@ -83,7 +83,7 @@ open class MathGenerate {
         return operation
     }
 
-    private fun <T : Number> isInteger(v: T): Boolean = "." !in v.toString()
+    private fun <T : Number> isInteger(v: T): Boolean  = "." !in v.toString()
 
     private fun marker(operation: MathOperation, number: Int): String {
         if (operation == MathOperation.Division && number.isZero()) {
@@ -91,7 +91,7 @@ open class MathGenerate {
             lastNumber = number
             return (if (number > 0) number.toString() else "($number)") + operation.operation
         }
-        if (operation == MathOperation.Division && !lastNumber.isIntegerResult(number)) {
+        if (operation == MathOperation.Division && !(lastNumber isIntegerResult number)) {
             lastOperation = operation
             lastNumber = getNumberForIntegerResult()
             return (if ( lastNumber > 0) lastNumber.toString() else "($lastNumber)") + operation.operation
@@ -123,7 +123,7 @@ open class MathGenerate {
 
     private fun getAnswerOnExample(example: String): BigDecimal = evaluate(example)
 
-    open var customRandom: CustomRandom = ObjectRandom()
+    open var customRandom: CustomRandom = random
         set(value) {
             random = value
             field = value
@@ -166,7 +166,7 @@ open class MathGenerate {
 
          fun Int.isZero(): Boolean = (this == 0)
 
-         fun Int.isIntegerResult(number: Int): Boolean = (this % number) == 0
+         infix fun Int.isIntegerResult(number: Int): Boolean = (this % number) == 0
 
          val Int.isPrimeNumber: Boolean
              get() = 2.toDouble().pow(this) % this == 1.0
